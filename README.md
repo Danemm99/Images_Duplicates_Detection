@@ -14,7 +14,7 @@
     
     *   Accepts a `request_id` and searches for images in Qdrant that match this `request_id`.
     *   For each found image, it searches for similar images based on their vectors.
-    *   If duplicates are found, it returns a list of these duplicates with detailed information (image ID, `url`, `filename`).
+    *   If duplicates are found, it returns a list of these duplicates with detailed information (`image_id`, `url`, `filename`).
     *   If no duplicates are found, it returns an appropriate message.
 
 This allows users to upload images and check for duplicates using vector similarity.
