@@ -110,6 +110,7 @@ class CRUDImages:
                         "image_id": elem.id,
                         "url": elem.payload.get("url"),
                         "filename": elem.payload.get("filename"),
+                        "request_id": elem.payload.get("request_id"),
                     } for elem in duplicates
                 ]
             }

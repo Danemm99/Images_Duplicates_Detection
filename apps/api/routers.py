@@ -1,5 +1,5 @@
 from fastapi import APIRouter
-from apps.api.images import routes as images_routes
+from apps.api.images_api import routes as images_routes
 
 
 api_router = APIRouter()
