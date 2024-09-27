@@ -29,7 +29,7 @@ Start the containers if they are not already running.
 **5. Run tests:**
 
 ```commandline
-docker-compose exec api /bin/bash
+docker compose exec api /bin/bash
 ```
 
 ```commandline
