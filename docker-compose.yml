@@ -1,0 +1,46 @@
+version: '3.8'
+
+services:
+  api:
+    build: .
+    container_name: fastapi-images-service
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app
+    env_file:
+      - .env
+    depends_on:
+      qdrant:
+        condition: service_healthy
+    command: uvicorn apps.main.main:app --host 0.0.0.0 --port 8000
+
+  qdrant:
+    image: qdrant/qdrant
+    container_name: qdrant
+    ports:
+      - "6333:6333"
+    environment:
+      QDRANT__SERVICE__GRPC_PORT: 6334
+      QDRANT__STORAGE__PATH: "/qdrant/storage"
+    volumes:
+      - qdrant_data:/qdrant/storage
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:6333/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  tests:
+    build: .
+    container_name: test-container
+    command: pytest
+    depends_on:
+      qdrant:
+        condition: service_healthy
+    volumes:
+      - .:/app
+
+volumes:
+  qdrant_data:
+
