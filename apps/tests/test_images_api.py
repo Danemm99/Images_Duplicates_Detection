@@ -2,6 +2,13 @@ import io
 from PIL import Image
 from apps.tests.conftest import setup_qdrant
 from apps.crud.crud_images import crud_images
+from dotenv import load_dotenv
+import os
+
+
+load_dotenv()
+
+collection_name = os.getenv("TEST_COLLECTION_NAME")
 
 
 class FakeUploadFile:
@@ -30,7 +37,7 @@ def test_add_images(setup_qdrant):
     response = crud_images.add_images(
         files=files,
         request_id=request_id,
-        collection_name="test_image_vectors"
+        collection_name=collection_name
     )
 
     assert response["uploaded"] == 1
@@ -45,8 +52,8 @@ def test_find_duplicates(setup_qdrant):
     files = [FakeUploadFile(filename1, img1, "image/png", img1.getbuffer().nbytes),
              FakeUploadFile(filename2, img2, "image/png", img2.getbuffer().nbytes)]
 
-    crud_images.add_images(files=files, request_id=request_id, collection_name="test_image_vectors")
-    response = crud_images.find_duplicates(request_id=request_id, collection_name="test_image_vectors")
+    crud_images.add_images(files=files, request_id=request_id, collection_name=collection_name)
+    response = crud_images.find_duplicates(request_id=request_id, collection_name=collection_name)
 
     assert "duplicates" in response
     assert len(response["duplicates"]) > 0
@@ -61,7 +68,7 @@ def test_unsupported_file_format(setup_qdrant):
     response = crud_images.add_images(
         files=files,
         request_id=request_id,
-        collection_name="test_image_vectors"
+        collection_name=collection_name
     )
 
     assert response["error"] == "Unsupported file format: image/bmp. Only JPEG and PNG are allowed."
