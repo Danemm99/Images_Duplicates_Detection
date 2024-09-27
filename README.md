@@ -2,7 +2,7 @@
 
 ## Overview of Key Functions:
 
-1.  **`POST /images`**:
+1.  **`POST /api/images`**:
     
     *   Accepts a list of image files.
     *   Checks the file format (only JPEG and PNG are supported) and file size (up to 10 MB).
@@ -10,7 +10,7 @@
     *   Stores the vectors in a Qdrant collection along with additional file information (`filename`, `url`, `request_id`).
     *   Returns the count of successfully uploaded images along with the `request_id`.
 
-2.  **`GET /duplicates/{request_id}`**:
+2.  **`GET /api/duplicates/{request_id}`**:
     
     *   Accepts a `request_id` and searches for images in Qdrant that match this `request_id`.
     *   For each found image, it searches for similar images based on their vectors.
