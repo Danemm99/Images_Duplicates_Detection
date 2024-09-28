@@ -19,14 +19,14 @@ services:
     image: qdrant/qdrant
     container_name: ${QDRANT_HOST}
     ports:
-      - "${QDRANT_PORT}:6333"
+      - "${QDRANT_PORT}:${QDRANT_PORT}"
     environment:
       QDRANT__SERVICE__GRPC_PORT: 6334
       QDRANT__STORAGE__PATH: "/qdrant/storage"
     volumes:
       - qdrant_data:/qdrant/storage
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:6333/health"]
+      test: ["CMD", "curl", "-f", "http://localhost:${QDRANT_PORT}/health"]
       interval: 10s
       timeout: 5s
       retries: 5
