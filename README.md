@@ -31,7 +31,7 @@ https://github.com/Danemm99/Images_Duplicates_Detection.git
 cd Images_Duplicates_Detection
 ```
 
-**3. Set your environment variable in .env file with needed data:**
+**3. Set your environment variable in .env file with needed data (QDRANT_PORT=6333):**
 
 ```commandline
 cp .env.example .env
